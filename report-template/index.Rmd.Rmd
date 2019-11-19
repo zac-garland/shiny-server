@@ -1,0 +1,91 @@
+---
+title: "My Title<br>"
+output:
+    html_document:
+      code_folding: hide
+      css: www/style_slim.css
+      includes:
+        before_body: www/header.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( message = F, warning = F, out.width = "100%")
+
+zg_colors <- c("#222831","#393e46","#d65A31","#EEEEEE","#FFCF99","#FFCF99")
+
+corp_colors <- c("#88BdBc","#254e58","#112d32","#4f4a41","#6E6658")
+
+clean_mod <- c("#17252A","#2B7A78","#3AAFa9","#DEF2f1","#FEFFFF")
+
+nature <- c("#687864","#31708E","#5085A5","#8FC1E3","#F7F9FB")
+
+peaceful_mod <- c("#844D36","#474853","#86B3D1","#AAA0A0","#8E8268")
+
+corp_serious <- c("#265077","#022140","#494B68","#1E4258","#2D5F5D")
+library(tidyquant)
+library(tidyverse)
+library(DT)
+
+```
+
+<script>
+hljs.registerLanguage("r",
+  function(e){
+    var r="([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*";
+    return{
+      c:[e.HCM,
+        {cN:"fun-param",b:"([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*\\s+=\\s+",r:0},
+        {cN:"pipe",b:"%>%|\\+|\\(|\\)",r:0},
+        {cN:"assign",b:" <- ",r:0},
+        {cN:"keyword",b:"([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*::",r:0},
+  //      {cN:"dplyr",b:"tibble|mutate|select|filter|summari[sz]e|arrange|group_by",e:"[a-zA-Z0-9._]*",r:0},
+        {b:r,l:r, k:
+          {keyword:"function if in break next repeat else for return switch while try tryCatch stop warning require library attach detach source setMethod setGeneric setGroupGeneric setClass ... pal req top ymd abs all max min seq cor cat rev rgb img sym dat viz xts dim get rep sum GET map box RSI SMA cov div ADX CCI EMA OBV unz lag pdf set tic toc str fit mdy plot rect need quin list mean ncol sort HTML icon year vars days sent eval gsub nrow sqrt desc funs near pull labs fill head NROW pmap map2 diag dist View prod lead MACD data dput time beqs nest tail coef bake prep view with syms stop toRGB paste round setwd which magma apply kable match names slice hcaes month q_dat style years parse count str_c space print tally top_n quote alpha index split trunc pluck enquo hcmap weeks getwd nchar aroon stoch floor unzip cbind thead table pname order today juice acast rpois log10 filter ggplot length column format months return mutate select layout median gather spread sample script tabBox rename tibble hchart q_indx q_news tq_get factor ifelse paste0 unique cutree hclust unnest screen source map_df strong vector av_get getIVP detach search unlist safely substr BBands mapply unlink a_to_z reduce lapply levels abline tk_tbl getURL h_port switch recipe fit_xy sticker plot_ly library arrange ungroup viridis colSums message shQuote col2rgb tribble tabItem bubbles cor_mat filt_df observe q_comps q_price ret_hot subplot text_df vistime rep_len replace reorder str_sub hrp_fun imf_ind q_trash percent options map_dfr web_url sprintf isolate hot_col q_quote setdiff content anytime rowSums add_row ggtitle enframe map_chr dirname heatmap timevis as_date glimpse density readPDF VCorpus summary brinson metrics testing predict colorbar fluidRow reactive shinyApp tabPanel validate group_by read_csv quantile separate menuItem row_spec tabItems DTOutput full_row ggplotly half_row hc_title hot_cols hot_to_r index_df index_dt q_return q_screen renderUI uiOutput colnames contains min_rank geom_col imf_data plot_geo rownames setNames tq_index tempfile distinct has_name optional last_day add_bars filt_df2 screen_2 recurFun str_glue quo_name getQuote gregexpr str_trim fromJSON is_empty withTags strsplit corrplot sample_n col_grow hc_xAxis theme_tq hpfilter training autoplot twsOrder pmap_chr tidyfeed step_log as_tibble add_lines fluidPage wellPanel summarise summarize left_join mutate_at add_trace datatable full_page highchart hot_table html_text inst_data q_descrip q_pricing read_html textInput tq_mutate watch_obj character identical add_tally anti_join bind_cols bind_rows full_join mutate_if select_if semi_join as_factor as_vector str_split cell_spec geom_line setSolver fileInput mainPanel bal_sheet q_returns structure stat_ecdf html_node html_attr write_csv invisible browsable chaikinAD anomalize case_when GetIncome URISource df_status set_names roc_curve step_corr geom_rect tableGrob order_fun wordcloud make_ames mandelbrot theme_void event_data ggcorrplot navbarPage plotOutput renderPlot shinytheme everything with_order add_indent htmlOutput scroll_box group_rows renderText hctreemap2 data_frame formatDate hc_tooltip hist_chart html_nodes q_intraday tech_price textOutput wordcloud2 arrange_at inner_join coord_flip facet_wrap str_detect str_length add_column write_disk row_number read_delim styleEqual adjustOHLC getSymbols getWeights titlePanel html_table str_locate twsConnect av_api_key geom_vline q_data_ref mutate_all image_info image_read image_trim image_chop floor_date blpConnect qrs_screen replace_na read_excel geom_hline geom_point formalArgs read_lines gain_curve set_engine step_scale hctreemap3 list_parse linear_reg step_dummy step_other geom_raster add_ribbons selectInput sliderInput winsorize_x shinyServer sidebarMenu tableOutput formatStyle menuSubItem q_key_stats q_watchlist withSpinner adjustcolor str_replace renderPrint str_extract geom_smooth one_or_more fct_reorder renderTable hex_to_rgba isConnected add_headers mkt_factors image_scale image_write letterCloud list_parse2 geom_ribbon clean_names rand_forest step_center assert_that all_nominal coord_fixed geom_abline install_load plotlyOutput renderPlotly hc_colorAxis ceiling_date company_news create_yaxis numericInput observeEvent q_cf_fmt_tbl q_transcript ticker_price tq_mutate_xy tq_transmute str_to_lower str_to_title str_to_upper actionButton geom_density radioButtons sidebarPanel cf_statement getRecBipart q_quote_safe zero_or_more safe_q_price image_border percent_rank excel_sheets findInterval loadWorkbook q_price_test all_outcomes dashboardBody dashboardPage kable_styling q_bal_fmt_tbl bubblesOutput checkboxInput hc_add_series q_inc_fmt_tbl q_key_returns renderBubbles rhandsontable unnest_tokens theme_minimal dat_structure imf_data_flow hide_colorbar as_data_frame portfolioSpec sidebarLayout q_mkt_factors getClusterVar html_children styleColorBar str_match_all test_copy_emi palette_light readWorksheet initial_split reqOpenOrders anyDuplicated animation_opts selectizeInput dateRangeInput get_sentiments reactiveValues tq_performance dat_pull_react ideal_location formatCurrency q_latest_quote geom_histogram time_decompose hc_plotOptions getOptionChain all_predictors textConnection gtable_combine sell_short_fun pairwise_count dashboardHeader q_balance_sheet add_annotations company_filings dataTableOutput highchartOutput renderDataTable renderHighchart str_replace_all sliderTextInput str_split_fixed getTargetReturn q_bench_returns q_construct_url rowid_to_column tq_transmute_xy renderHighChart animation_button animation_slider dashboardSidebar highchartOutput2 conditionalPanel formatPercentage hc_rangeSelector renderWordcloud2 wordcloud2Output animationOptions riingo_set_token hc_mapNavigation suppressMessages suppressWarnings q_rename_convert tq_index_options q_geometric_link colorRampPalette sidebarSearchForm portfolioFrontier reqAccountUpdates twsPortfolioValue CompactDataMethod supported_tickers download_map_data get_data_from_map scale_fill_brewer mandelbrot_palette column_to_rownames hc_yAxis_multiples q_income_statement q_return_stats_one q_return_stats_two rownames_to_column verbatimTextOutput hc_add_series_ohlc setNFrontierPoints scale_x_continuous q_return_stats_full renderRHandsontable rHandsontableOutput DataStructureMethod scale_fill_gradientn package_dependencies q_cash_flow_statement datetime_to_timestamp tq_mutate_fun_options collapsibleTreeSummary plot_anomaly_decomposition tq_performance_fun_options",
+          literal:"NULL NA TRUE FALSE T F Inf NaN NA_integer_|10 NA_real_|10 NA_character_|10 NA_complex_|10"},
+        r:0},
+        {cN:"number",b:"0[xX][0-9a-fA-F]+[Li]?\\b",r:0},
+        {cN:"number",b:"\\d+(?:[eE][+\\-]?\\d*)?L\\b",r:0},
+        {cN:"number",b:"\\d+\\.(?!\\d)(?:i\\b)?",r:0},
+        {cN:"number",b:"\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",r:0},
+        {cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",r:0},
+        {b:"`",e:"`",r:0},
+        {cN:"string",c:[e.BE],v:[{b:'"',e:'"'},{b:"'",e:"'"}]},
+        {cN:"zg-paren",b:"\\(|\\)",r:0}
+      ]
+    }
+  }
+);
+
+
+
+</script>
+<hr>
+
+## {.tabset .tabset-fade}
+
+
+### R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+
+stock_index <- tq_index("DOW")
+
+stock_index %>% 
+  select(symbol,sector,company,weight) %>% 
+  mutate(weight = round(weight*100,2)) %>% 
+  datatable(options = list(dom = 'tp'),rownames=F)
+```
+
+### Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
