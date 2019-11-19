@@ -3,9 +3,9 @@ title: "My Title<br>"
 output:
     html_document:
       code_folding: hide
-      css: /style_slim.css
+      css: www/style_slim.css
       includes:
-        before_body: /header.html
+        before_body: www/header.html
 ---
 
 ```{r setup, include=FALSE}
