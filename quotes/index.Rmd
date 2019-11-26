@@ -34,12 +34,6 @@ library(highcharter)
 
 <style>
 
-.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
-    outline: none;
-    color: #333;
-    background-color: #Ba996E;
-    border-color: #Ba996E;
-}
 
 
 .main {
@@ -100,8 +94,15 @@ text-shadow : 0 1px 1px rgba(255, 255, 255, 0.1);
 text-transform : uppercase;
 }
 
-button {
-    outline: none;
+.btn{
+  border: 0px solid transparent;
+}
+
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+    outline: thin dotted;
+    outline: 0px auto -webkit-focus-ring-color;
+    outline-offset: -3px;
 }
 
 
@@ -113,39 +114,44 @@ font-style : italic;
 cite a:hover {
 color : #Ba996E;
 }
+
+
+.bouncy{
+animation:bouncy 5s infinite linear;
+position:relative;
+}
+
+@keyframes bouncy {
+0%{top:0em}
+40%{top:0em}
+43%{top:-0.9em}
+46%{top:0em}
+48%{top:-0.4em}
+50%{top:0em}
+100%{top:0em;}
+}
+
 </style>
 
   
   
+  
 ```{r}
 
-values <- reactiveValues(default = 0)
-
-
-
-quote <- eventReactive(input$go, {
-    
-  read_csv('C:\\Users\\zg5280\\Desktop\\QuantViz_2.0\\QuantViz\\Trash\\biz_quotes.csv') %>% sample_n(1)
+react_vals <- reactiveValues(
   
-  }, ignoreNULL = T)
-
-
-start <- reactive({
-
-if(values$default == 0){
-
-read_csv('C:\\Users\\zg5280\\Desktop\\QuantViz_2.0\\QuantViz\\Trash\\biz_quotes.csv') %>% sample_n(1)
-
-    
-}
+  quote = read_csv('C:\\Users\\zg5280\\Desktop\\QuantViz_2.0\\QuantViz\\Trash\\biz_quotes.csv') %>% sample_n(1)
   
-})
+)
 
 
 observeEvent(input$go,{
-           values$default <- input$go
+           react_vals$quote <- read_csv('C:\\Users\\zg5280\\Desktop\\QuantViz_2.0\\QuantViz\\Trash\\biz_quotes.csv') %>% sample_n(1)
       })
 
+
+br()
+actionButton("go","new quote",style="display:block;margin:auto;",class="bouncy",icon = icon("quote-right"))
 
 
 renderUI(
@@ -163,7 +169,7 @@ renderUI(
 <p>',
 
 
-ifelse(values$default == 0,start()$text,quote()$text)
+react_vals$quote$text
 
 
 
@@ -174,7 +180,9 @@ ifelse(values$default == 0,start()$text,quote()$text)
 
 <div class="mb-attribution">
 <p class="mb-author">',
-ifelse(values$default == 0,start()$author,quote()$author)
+
+react_vals$quote$author
+
 ,'</p>
 </div>
 
@@ -191,10 +199,9 @@ ifelse(values$default == 0,start()$author,quote()$author)
   
 )
 
+
+
+
+
+
 ```
-
-```{r}
-actionButton("go","new quote")
-
-```
-
