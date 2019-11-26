@@ -140,13 +140,13 @@ position:relative;
 
 react_vals <- reactiveValues(
   
-  quote = read_csv('C:\\Users\\zg5280\\Desktop\\QuantViz_2.0\\QuantViz\\Trash\\biz_quotes.csv') %>% sample_n(1)
+  quote = read_csv('dat/biz_quotes.csv') %>% sample_n(1)
   
 )
 
 
 observeEvent(input$go,{
-           react_vals$quote <- read_csv('C:\\Users\\zg5280\\Desktop\\QuantViz_2.0\\QuantViz\\Trash\\biz_quotes.csv') %>% sample_n(1)
+           react_vals$quote <- read_csv('dat/biz_quotes.csv') %>% sample_n(1)
       })
 
 
