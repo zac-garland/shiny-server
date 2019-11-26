@@ -1,0 +1,200 @@
+---
+title: ""
+output:
+    html_document:
+      runtime: shiny
+      css: www/style_slim.css
+      includes:
+        before_body: www/header.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( message = F, warning = F, out.width = "100%",echo = FALSE)
+
+zg_colors <- c("#222831","#393e46","#d65A31","#EEEEEE","#FFCF99","#FFCF99")
+
+corp_colors <- c("#88BdBc","#254e58","#112d32","#4f4a41","#6E6658")
+
+clean_mod <- c("#17252A","#2B7A78","#3AAFa9","#DEF2f1","#FEFFFF")
+
+nature <- c("#687864","#31708E","#5085A5","#8FC1E3","#F7F9FB")
+
+peaceful_mod <- c("#844D36","#474853","#86B3D1","#AAA0A0","#8E8268")
+
+corp_serious <- c("#265077","#022140","#494B68","#1E4258","#2D5F5D")
+library(tidyquant)
+library(tidyverse)
+library(DT)
+library(highcharter)
+
+
+
+```
+
+
+<style>
+
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+    outline: none;
+    color: #333;
+    background-color: #Ba996E;
+    border-color: #Ba996E;
+}
+
+
+.main {
+position : relative;
+}
+
+
+.mb-wrap {
+margin : 20px auto;
+padding : 20px;
+position : relative;
+text-align: center;
+width: 75%;
+
+}
+
+.mb-wrap p {
+margin : 0;
+padding : 0;
+}
+
+.mb-wrap blockquote {
+margin : 0;
+padding : 0;
+position : relative;
+}
+
+.mb-wrap cite {
+font-style : normal;
+}
+
+
+
+blockquote {
+    border-left: none;
+}
+
+
+.mb-style-2 blockquote p {
+color : #Ba996E;
+display : inline;
+font-family : Baskerville, Georgia, serif;
+font-style : italic;
+font-size : 28px;
+line-height : 46px;
+}
+
+.mb-attribution {
+text-align : center;
+}
+
+.mb-author {
+color : #Ba996E;
+font-size : 18px;
+font-weight : bold;
+padding-top : 10px;
+text-shadow : 0 1px 1px rgba(255, 255, 255, 0.1);
+text-transform : uppercase;
+}
+
+button {
+    outline: none;
+}
+
+
+cite a {
+color : #Ba996E;
+font-style : italic;
+}
+
+cite a:hover {
+color : #Ba996E;
+}
+</style>
+
+  
+  
+```{r}
+
+values <- reactiveValues(default = 0)
+
+
+
+quote <- eventReactive(input$go, {
+    
+  read_csv('C:\\Users\\zg5280\\Desktop\\QuantViz_2.0\\QuantViz\\Trash\\biz_quotes.csv') %>% sample_n(1)
+  
+  }, ignoreNULL = T)
+
+
+start <- reactive({
+
+if(values$default == 0){
+
+read_csv('C:\\Users\\zg5280\\Desktop\\QuantViz_2.0\\QuantViz\\Trash\\biz_quotes.csv') %>% sample_n(1)
+
+    
+}
+  
+})
+
+
+observeEvent(input$go,{
+           values$default <- input$go
+      })
+
+
+
+renderUI(
+
+  
+  
+    
+  
+  HTML(
+    paste(
+      '
+<section class="main">
+<div class="mb-wrap mb-style-2">
+<blockquote >
+<p>',
+
+
+ifelse(values$default == 0,start()$text,quote()$text)
+
+
+
+,'
+</p>
+</blockquote>
+</div>
+
+<div class="mb-attribution">
+<p class="mb-author">',
+ifelse(values$default == 0,start()$author,quote()$author)
+,'</p>
+</div>
+
+</section>
+
+      
+      
+      
+      
+      
+      '
+    )
+  )
+  
+)
+
+```
+
+```{r}
+actionButton("go","new quote")
+
+```
+
