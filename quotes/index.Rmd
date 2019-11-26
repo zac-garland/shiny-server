@@ -20,11 +20,7 @@ nature <- c("#687864","#31708E","#5085A5","#8FC1E3","#F7F9FB")
 peaceful_mod <- c("#844D36","#474853","#86B3D1","#AAA0A0","#8E8268")
 
 corp_serious <- c("#265077","#022140","#494B68","#1E4258","#2D5F5D")
-library(tidyquant)
-library(tidyverse)
-library(DT)
-library(highcharter)
-
+library(shiny)
 
 
 ```
@@ -116,7 +112,7 @@ color : #Ba996E;
 
 .bouncy{
 animation:bouncy 5s infinite linear;
-animation-delay: 10s;
+animation-delay: 3s;
 position:relative;
 }
 
@@ -202,7 +198,7 @@ renderUI(
   HTML(
     paste(
       '
-<section class="main">
+<div class="row">
 <div class="mb-wrap mb-style-2">
 <blockquote >
 <p>',
@@ -225,8 +221,7 @@ react_vals$quote$author
 ,'</p>
 </div>
 
-</section>
-
+</div>
       
       
       
