@@ -21,6 +21,7 @@ peaceful_mod <- c("#844D36","#474853","#86B3D1","#AAA0A0","#8E8268")
 
 corp_serious <- c("#265077","#022140","#494B68","#1E4258","#2D5F5D")
 library(shiny)
+library(tidyverse)
 
 
 ```
