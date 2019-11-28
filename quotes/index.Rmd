@@ -190,7 +190,7 @@ br()
 
 br()
 
-renderUI(
+renderUI({
 
 
   
@@ -232,7 +232,7 @@ react_vals$quote$author
     )
   )
   
-)
+})
 
 
 
