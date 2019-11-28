@@ -83,7 +83,7 @@ display : inline;
 font-family : Baskerville, Georgia, serif,Sans-Serif;
 font-style : italic;
 font-size : 1.5em;
-line-height : 1.5em;
+line-height : 2em;
 }
 
 .mb-attribution {
@@ -92,11 +92,11 @@ text-align : center;
 
 .mb-author {
 color : #Ba996E;
-font-size : 1em;
+font-size : 2em;
 font-weight : bold;
 padding-top : 10px;
 text-shadow : 0 1px 1px rgba(255, 255, 255, 0.1);
-text-transform : uppercase;
+text-transform : lowercase;
 }
 
 .btn{
@@ -182,7 +182,8 @@ actionButton("go","new quote",style="display:block;margin:auto;",icon = icon("qu
 
 react_vals <- reactiveValues(
   
-  quote = read_csv('dat/biz_quotes.csv') %>% sample_n(1)
+  quote = read_csv('dat/biz_quotes.csv') %>% sample_n(1) 
+
   
 )
 
@@ -199,19 +200,19 @@ renderUI({
 
 
 df <- react_vals$quote  
-    
+col_new <- sample(c("#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA", "#77CCCC", "#117744", "#44AA77", "#88CCAA", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788"),1)    
 
 HTML(paste0(
 '
 <div class="row">
 <div class="mb-wrap mb-style-2">
 <blockquote>
-<p>',df$text,'
+<p style="color:',"#fff",'">',df$text,'
 </p>
 </blockquote>
 </div>
 <div class="mb-attribution">
-<p class="mb-author">',df$author,'</p>
+<p class="mb-author" style="color:',col_new,'">',df$author,'</p>
 </div>
 </div>'))
 
