@@ -58,7 +58,7 @@ display : inline;
 font-family : Baskerville, Georgia, serif,Sans-Serif;
 font-style : italic;
 font-size : 1.5em;
-line-height : 1.3em;
+line-height : 1.3em !important;
 }
 
 
