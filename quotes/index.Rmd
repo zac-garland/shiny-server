@@ -1,8 +1,8 @@
 ---
 title: ""
+runtime: shiny
 output:
     html_document:
-      runtime: shiny
       css: www/style_slim.css
 ---
 
@@ -28,9 +28,6 @@ library(tidyverse)
 
 
 <style>
-
-
-
 .main {
 position : relative;
 }
@@ -70,7 +67,7 @@ blockquote {
 .mb-style-2 blockquote p {
 color : #Ba996E;
 display : inline;
-font-family : Baskerville, Georgia, serif;
+font-family : Baskerville, Georgia, serif,Sans-Serif;
 font-style : italic;
 font-size : 28px;
 line-height : 46px;
@@ -184,54 +181,28 @@ observeEvent(input$go,{
 
 br()
 br()
-
-
-
-
 br()
 
 renderUI({
 
 
-  
+df <- react_vals$quote  
     
-  
-  HTML(
-    paste(
-      '
+
+HTML(paste0(
+'
 <div class="row">
 <div class="mb-wrap mb-style-2">
-<blockquote >
-<p>',
-
-
-react_vals$quote$text
-
-
-
-,'
+<blockquote>
+<p>',df$text,'
 </p>
 </blockquote>
 </div>
-
 <div class="mb-attribution">
-<p class="mb-author">',
-
-react_vals$quote$author
-
-,'</p>
+<p class="mb-author">',df$author,'</p>
 </div>
+</div>'))
 
-</div>
-      
-      
-      
-      
-      
-      '
-    )
-  )
-  
 })
 
 
