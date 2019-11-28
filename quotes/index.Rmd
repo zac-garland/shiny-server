@@ -69,7 +69,7 @@ color : #Ba996E;
 display : inline;
 font-family : Baskerville, Georgia, serif,Sans-Serif;
 font-style : italic;
-font-size : 28px;
+font-size : 1.5em;
 line-height : 46px;
 }
 
@@ -79,7 +79,7 @@ text-align : center;
 
 .mb-author {
 color : #Ba996E;
-font-size : 18px;
+font-size : 1em;
 font-weight : bold;
 padding-top : 10px;
 text-shadow : 0 1px 1px rgba(255, 255, 255, 0.1);
