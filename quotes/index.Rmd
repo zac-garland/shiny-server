@@ -42,6 +42,19 @@ width: 75%;
 
 }
 
+@media only screen and (max-width: 600px) {
+.mb-wrap {
+margin : 5px auto;
+padding : 5px;
+position : relative;
+text-align: center;
+width: 100%;
+
+}
+
+
+}
+
 .mb-wrap p {
 margin : 0;
 padding : 0;
@@ -70,7 +83,7 @@ display : inline;
 font-family : Baskerville, Georgia, serif,Sans-Serif;
 font-style : italic;
 font-size : 1.5em;
-line-height : 46px;
+line-height : 1.5em;
 }
 
 .mb-attribution {
@@ -179,7 +192,6 @@ observeEvent(input$go,{
       })
 
 
-br()
 br()
 br()
 
