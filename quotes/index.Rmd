@@ -55,7 +55,7 @@ width: 100%;
 .mb-style-2 blockquote p {
 color : #Ba996E;
 display : inline;
-font-family : Baskerville, Georgia, serif,Sans-Serif;
+font-family : 'Century Gothic', Baskerville, Georgia, serif, Sans-Serif;
 font-style : italic;
 font-size : 1.5em;
 line-height : 1.5em !important;
@@ -89,7 +89,7 @@ blockquote {
 .mb-style-2 blockquote p {
 color : #Ba996E;
 display : inline;
-font-family : Baskerville, Georgia, serif,Sans-Serif;
+font-family : 'Century Gothic', Baskerville, Georgia, serif,Sans-Serif;
 font-style : italic;
 font-size : 1.5em;
 line-height : 2em;
