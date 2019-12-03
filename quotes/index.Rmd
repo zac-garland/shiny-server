@@ -62,6 +62,17 @@ line-height : 1.5em !important;
 }
 
 
+.mb-style-2 blockquote p:first-child:before {
+    content: '\201c';
+    color: #Ba996E;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 7.5em;
+    position: absolute;
+    left: -.2em;
+}
+
+
 }
 
 .mb-wrap p {
@@ -93,6 +104,17 @@ font-family : 'Century Gothic', Baskerville, Georgia, serif,Sans-Serif;
 font-style : italic;
 font-size : 1.5em;
 line-height : 2em;
+}
+
+.mb-style-2 blockquote p:first-child:before {
+    content: '\201c';
+    color: #Ba996E;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 7.5em;
+    top: .2em;
+    position: absolute;
+    left: -.5em;
 }
 
 .mb-attribution {
