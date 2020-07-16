@@ -196,21 +196,21 @@ ui <- tagList(
                      color = "black")
                    
                    ),
-          fluidRow(
-            valueBox(htmlOutput("total_interest"), 
-                     "Total Interest Paid", 
-                     icon = icon("line-chart"), 
-                     color = "black"),
-            valueBox(htmlOutput("total_paid"), 
-                     "Fifteen Year Fixed Mortgage", 
-                     icon = icon("line-chart"), 
-                     color = "black"),
-            valueBox(htmlOutput("pct_of_whole"), 
-                     "Interest as % of Total", 
-                     icon = icon("line-chart"), 
-                     color = "black")
-            
-          ),
+          # fluidRow(
+          #   valueBox(htmlOutput("total_interest"), 
+          #            "Total Interest Paid", 
+          #            icon = icon("line-chart"), 
+          #            color = "black"),
+          #   valueBox(htmlOutput("total_paid"), 
+          #            "Fifteen Year Fixed Mortgage", 
+          #            icon = icon("line-chart"), 
+          #            color = "black"),
+          #   valueBox(htmlOutput("pct_of_whole"), 
+          #            "Interest as % of Total", 
+          #            icon = icon("line-chart"), 
+          #            color = "black")
+          #   
+          # ),
           plotlyOutput("pay_plot")
         )
       )
