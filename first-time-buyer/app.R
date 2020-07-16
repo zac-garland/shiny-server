@@ -81,7 +81,7 @@ body {
 
 @media (min-width: 768px) {
   .sidebar-wrapper {
-    margin-left: 0;
+    margin-left: -15rem;
   }
 
   .page-content-wrapper {
