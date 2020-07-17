@@ -12,22 +12,26 @@ library(bootstraplib)
  
 
 current_mortgage_rates <- function() {
-  read_html("http://www.freddiemac.com/pmms/pmms_archives.html") %>% 
-    html_nodes("table") %>% 
-    .[1] %>% 
-    html_table() %>% 
-    .[[1]] %>% 
-    tibble() %>% 
-    slice(1) %>% 
-    select(2:ncol(.)) %>% 
-    setNames(c("thirty_year","fifteen_year","arm_loan")) %>% 
-    mutate_all(vars(str_extract_all(., "\\d\\.\\d\\d") %>%
-                      unlist() %>%
-                      str_flatten() %>%
-                      as.double())) %>% 
-    gather(mortgage,int_rate)
+  # read_html("http://www.freddiemac.com/pmms/pmms_archives.html") %>% 
+  #   html_nodes("table") %>% 
+  #   .[1] %>% 
+  #   html_table() %>% 
+  #   .[[1]] %>% 
+  #   tibble() %>% 
+  #   slice(1) %>% 
+  #   select(2:ncol(.)) %>% 
+  #   setNames(c("thirty_year","fifteen_year","arm_loan")) %>% 
+  #   mutate_all(vars(str_extract_all(., "\\d\\.\\d\\d") %>%
+  #                     unlist() %>%
+  #                     str_flatten() %>%
+  #                     as.double())) %>% 
+  #   gather(mortgage,int_rate)
+  # 
+  # cat(file=stderr(), ..., "\n")
   
-  cat(file=stderr(), ..., "\n")
+  structure(list(mortgage = c("thirty_year", "fifteen_year", "arm_loan"
+  ), int_rate = c(2.98, 2.48, 3.06)), row.names = c(NA, -3L), class = c("tbl_df", 
+                                                                        "tbl", "data.frame"))
   
 }
 
