@@ -12,7 +12,7 @@ library(bootstraplib)
  
 
 current_mortgage_rates <- function() {
-  read_html("http://www.freddiemac.com/pmms/pmms_archives.html") %>% 
+  read_html("https://www.freddiemac.com/pmms/pmms_archives.html") %>% 
     html_nodes("table") %>% 
     .[1] %>% 
     html_table() %>% 

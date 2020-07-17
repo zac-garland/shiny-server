@@ -4,6 +4,7 @@ library(shinyMobile)
 
 
 source("R/helper-funs.R")
+
 cur_mort_rates <- current_mortgage_rates()
 
 home_prices <- tq_get("CSUSHPISA",
