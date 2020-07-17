@@ -152,7 +152,7 @@ shinyApp(
         ) %>%
         add_lines(
           y = ~home_value,
-          name = "Estimated Home Value",
+          name = "Estimated Home Appreciation",
           color = I("black"),
           line = list(
             dash = "dash"  
