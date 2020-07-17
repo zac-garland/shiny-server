@@ -12,38 +12,85 @@ library(bootstraplib)
  
 
 current_mortgage_rates <- function() {
-  pg <- read_html("https://www.bankrate.com/mortgages/mortgage-rates/")
+  read_html("http://www.freddiemac.com/pmms/pmms_archives.html") %>% 
+    html_nodes("table") %>% 
+    .[1] %>% 
+    html_table() %>% 
+    .[[1]] %>% 
+    tibble() %>% 
+    slice(1) %>% 
+    select(2:ncol(.)) %>% 
+    setNames(c("thirty_year","fifteen_year","arm_loan")) %>% 
+    mutate_all(vars(str_extract_all(., "\\d\\.\\d\\d") %>%
+                      unlist() %>%
+                      str_flatten() %>%
+                      as.double())) %>% 
+    gather(mortgage,int_rate)
+}
 
 
-  pg %>%
-    html_nodes("p") %>%
-    html_text() %>%
-    tibble(line = .) %>%
-    filter(str_detect(line, "APR")) %>%
-    slice(1) %>%
-    pull() %>%
-    str_extract_all("\\d+(?:\\.\\d+)?%") %>%
-    unlist() %>%
-    tibble(value = .) %>%
-    rowid_to_column() %>%
-    left_join(
-      tribble(
-        ~group, ~type,
-        "thirty_year", "rate",
-        "thirty_year", "APR",
-        "fifteen_year", "rate",
-        "fifteen_year", "APR",
-        "arm_loan", "rate",
-        "arm_loan", "APR"
-      ) %>%
-        rowid_to_column(),
-      by = "rowid"
-    ) %>%
-    select(-rowid) %>%
-    mutate(value = str_replace(value, "%", "") %>% as.numeric()) %>%
-    spread(type, value) %>%
-    arrange(desc(group)) %>%
-    select(mortgage = group, int_rate = rate, APR)
+
+update_housing_data <- function(){
+  read_html("https://www.zillow.com/research/data/") %>%
+    html_nodes("select") %>%
+    .[2] %>% 
+    html_nodes("option") %>% 
+    html_attr("value") %>% 
+    tibble(link = .) %>% 
+    filter(str_detect(link,".csv$")) %>%  
+    pull() %>% 
+    map(~{
+      new_name <- basename(.x) %>% 
+        str_split("_") %>% 
+        unlist() %>% 
+        .[[1]] %>% 
+        paste0(".csv")
+      
+      dat <- read_csv(.x) 
+      
+      dat_names <- names(dat)
+      
+      to_gather <- dat_names %>% 
+        tibble(name = .,
+               is_date = as_date(name)) %>% 
+        rowid_to_column() %>% 
+        filter(!is.na(is_date)) %>%
+        pull(rowid)
+      
+      dat <- dat %>% 
+        rowid_to_column() %>% 
+        gather(date,value,to_gather+1) %>% 
+        clean_names() %>% 
+        group_by(rowid) %>% 
+        arrange(rowid,date,value) %>% 
+        mutate(monthly_growth_rate = value/lag(value) - 1) %>% 
+        filter(!is.na(monthly_growth_rate)) %>% 
+        ungroup() %>% 
+        mutate(date = as_date(date))
+      
+      dat %>% 
+        select_if(is.character) %>% 
+        distinct() %>% 
+        print()
+      
+      dat %>% 
+        write_csv(here::here("first-time-buyer","data",new_name))
+      
+      
+      
+    })
+  
+  
+  tq_get("CSUSHPISA",
+         get = "economic.data",
+         from = as_date("1800-01-01")) %>%
+    mutate(monthly_growth_rate = price / lag(price) - 1) %>%
+    na.omit() %>% 
+    print() %>% 
+    write_csv(here::here("first-time-buyer","data","Case Shiller.csv"))
+  
+  
+  
 }
 
 
