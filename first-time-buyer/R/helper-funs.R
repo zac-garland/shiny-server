@@ -19,7 +19,8 @@ current_mortgage_rates <- function() {
     .[1] %>%
     html_table() %>%
     .[[1]] %>%
-    tibble() %>%
+    as.data.frame() %>% 
+    as_tibble() %>%
     slice(1) %>%
     select(2:ncol(.)) %>%
     setNames(c("thirty_year","fifteen_year","arm_loan")) %>%
