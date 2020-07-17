@@ -26,6 +26,9 @@ current_mortgage_rates <- function() {
                       str_flatten() %>%
                       as.double())) %>% 
     gather(mortgage,int_rate)
+  
+  cat(file=stderr(), ..., "\n")
+  
 }
 
 
