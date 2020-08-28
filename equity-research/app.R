@@ -34,7 +34,7 @@ sidebar <- dashboardSidebar(
                        icon = icon('random'),
                        dateRangeInput("tech_date_range",
                                       "Date range:",
-                                      start  = Sys.Date() %m-% years(1),
+                                      start  = Sys.Date() %m-% months(3),
                                       end    = Sys.Date(),
                                       min    = "2000-01-01",
                                       max    = Sys.Date()),
@@ -94,43 +94,43 @@ body <- dashboardBody(
 
     tabItem(
       tabName = "tab_ind_sma",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_sma", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_sma"))))
     ),
     tabItem(
       tabName = "tab_ind_ema",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_ema", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_ema"))))
     ),
     tabItem(
       tabName = "tab_ind_macd",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_macd", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_macd"))))
     ),
     tabItem(
       tabName = "tab_ind_stoch",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_stoch", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_stoch"))))
     ),
     tabItem(
       tabName = "tab_ind_rsi",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_rsi", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_rsi"))))
     ),
     tabItem(
       tabName = "tab_ind_cci",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_cci", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_cci"))))
     ),
     tabItem(
       tabName = "tab_ind_aroon",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_aroon", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_aroon"))))
     ),
     tabItem(
       tabName = "tab_ind_obv",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_obv", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_obv"))))
     ),
     tabItem(
       tabName = "tab_ind_adx",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_adx", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_adx"))))
     ),
     tabItem(
       tabName = "tab_ind_bbands",
-      fluidRow(column(12, withSpinner(highchartOutput("ind_bbands", height = "850px"))))
+      fluidRow(column(12, withSpinner(highchartOutput("ind_bbands"))))
     )
   ) # end tab items
 ) # end body
@@ -149,6 +149,8 @@ server <- shinyServer(function(input, output) {
 
     tq_get(input$ticker, from = input$tech_date_range[[1]] %m-% years(1),
            to = input$tech_date_range[[2]])
+    
+    
 
   })
 
@@ -164,7 +166,7 @@ server <- shinyServer(function(input, output) {
       tq_mutate(select = adjusted, mutate_fun = SMA, n = input$sma_two, col_rename = "sma_200") %>%
       filter(date >= input$tech_date_range[[1]])
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
     sma_one_name <- paste0(input$sma_one," MA")
     sma_two_name <- paste0(input$sma_two," MA")
 
@@ -188,7 +190,7 @@ server <- shinyServer(function(input, output) {
       tq_mutate(select = adjusted, mutate_fun = EMA, n = input$ema_two, col_rename = "ema_50") %>%
       filter(date >= input$tech_date_range[[1]])
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
     ema_one_name <- paste0(input$ema_one," EMA")
     ema_two_name <- paste0(input$ema_two," EMA")
 
@@ -220,7 +222,7 @@ server <- shinyServer(function(input, output) {
       mutate(diff = macd - signal) %>%
       filter(date >= input$tech_date_range[[1]])
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
 
     highchart(type = "stock") %>%
 
@@ -253,7 +255,7 @@ server <- shinyServer(function(input, output) {
              upper_level = 80) %>%
       filter(date >= input$tech_date_range[[1]])
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
 
     highchart(type = "stock") %>%
 
@@ -282,8 +284,10 @@ server <- shinyServer(function(input, output) {
       mutate(lower_level = 30,
              upper_level = 70) %>%
       filter(date >= input$tech_date_range[[1]])
+    
+    print(ind_df)
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
 
     highchart(type = "stock") %>%
 
@@ -312,7 +316,7 @@ server <- shinyServer(function(input, output) {
              upper_level = 100) %>%
       filter(date >= input$tech_date_range[[1]])
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
 
     highchart(type = "stock") %>%
 
@@ -341,7 +345,7 @@ server <- shinyServer(function(input, output) {
       mutate(lower_level = -100,
              upper_level = 100)
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
 
     highchart(type = "stock") %>%
 
@@ -368,7 +372,7 @@ server <- shinyServer(function(input, output) {
       tq_mutate_xy(adjusted,volume, mutate_fun = OBV) %>%
       filter(date >= input$tech_date_range[[1]])
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
 
     highchart(type = "stock") %>%
 
@@ -393,7 +397,7 @@ server <- shinyServer(function(input, output) {
       select(date,open,high,low,close,volume,adjusted,everything()) %>%
       filter(date >= input$tech_date_range[[1]])
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
 
     highchart(type = "stock") %>%
 
@@ -427,7 +431,7 @@ server <- shinyServer(function(input, output) {
       filter(date >= input$tech_date_range[[1]])
 
 
-    ind_xts <- xts(ind_df[-1],ind_df$date)
+    ind_xts <- xts(select_if(ind_df,negate(is.character)) %>% select(-date),ind_df$date)
 
     highchart(type = "stock") %>%
 
